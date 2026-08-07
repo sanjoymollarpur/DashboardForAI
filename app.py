@@ -2,7 +2,7 @@ import streamlit as st
 
 from pages.login import login_page
 from pages.admin_dashboard import admin_dashboard
-# from pages.owner_dashboard import owner_dashboard
+from pages.user_dashboard import user_dashboard
 
 
 def main():
@@ -43,8 +43,9 @@ def main():
     if st.session_state.role == "admin":
         admin_dashboard()
 
-    elif st.session_state.role == "owner":
-        owner_dashboard()
+    elif st.session_state.role[:4] == "user":
+        # print(st.session_state.role[:3])
+        user_dashboard(st.session_state.role)
 
     else:
         st.error("Invalid user role.")
