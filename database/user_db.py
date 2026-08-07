@@ -45,4 +45,36 @@ def delete_project(p):
     query=f"DELETE FROM user_table1 WHERE id='{p[0]}' and project_name = '{p[1]}'"
     cursor.execute(query)
     conn.commit()
+
+def get_project(project_id):
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT id,
+               user_name,
+               project_name,
+               project_description,
+               project_state,
+               department,
+               problem
+        FROM user_table1
+        WHERE id = ?
+    """, (project_id,))
+
+    project = cursor.fetchone()
+
+    conn.commit()
+
+    return project
     
+def update_project(project_id, project_name, description, status, department, problem):
+    # conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        UPDATE user_table1
+        SET project_name = ?, project_description = ?, project_state = ?, department = ?,  problem = ?
+        WHERE id = ?
+    """, (project_name, description, status, department, problem, project_id))
+
+    conn.commit()
+    # conn.close()
