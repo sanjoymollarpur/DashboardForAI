@@ -39,3 +39,10 @@ def add_value(values1):
     )
     conn.commit()
 
+def delete_project(p):
+    # conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+    query=f"DELETE FROM user_table1 WHERE id='{p[0]}' and project_name = '{p[1]}'"
+    cursor.execute(query)
+    conn.commit()
+    
